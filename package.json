@@ -2,6 +2,7 @@
   "name": "omodoro",
   "displayName": "Pomodoro",
   "description": "Pomodoro timer with sound notifications",
+  "publisher": "Amin",
   "version": "0.0.1",
   "icon": "icon.png",
   "engines": {
@@ -62,6 +63,15 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
+  "keywords": [
+		"Pomodoro",
+		"Timer",
+		"sound"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Amin-Cheribet/pomodoro-vsc.git"
+	},
   "devDependencies": {
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.2.2",
