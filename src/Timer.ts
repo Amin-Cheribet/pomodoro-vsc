@@ -76,9 +76,7 @@ export default class
 
     work()
     {
-        this.player.play('sounds_bell.wav').then((result) =>
-            vscode.window.showInformationMessage('played')
-        ).catch((err) =>
+        this.player.play('sounds_bell.wav').then().catch((err) =>
             vscode.window.showInformationMessage(err)
         )
         this.statusBar.start()
@@ -90,9 +88,7 @@ export default class
 
     pause()
     {
-        this.player.play('sounds_chime.wav').then((result) =>
-            vscode.window.showInformationMessage('played')
-        ).catch((err) =>
+        this.player.play('sounds_chime.wav').then().catch((err) =>
             vscode.window.showInformationMessage(err)
         )
         this.statusBar.pause()
