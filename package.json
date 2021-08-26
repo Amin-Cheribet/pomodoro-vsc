@@ -3,7 +3,7 @@
   "displayName": "Pomodoro",
   "description": "Pomodoro timer with sound notifications",
   "publisher": "Amin",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.59.0"
