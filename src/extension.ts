@@ -18,19 +18,16 @@ export function activate(context: vscode.ExtensionContext)
     let start: vscode.Disposable = vscode.commands.registerCommand('pomodoro.start', () =>
     {
         timer.start()
-        vscode.window.showInformationMessage('Pomodoro started')
     })
 
     let continueTimer: vscode.Disposable = vscode.commands.registerCommand('pomodoro.continue', () =>
     {
         timer.continue()
-        vscode.window.showInformationMessage('Pomodoro Continue')
     })
 
     let pause: vscode.Disposable = vscode.commands.registerCommand('pomodoro.pause', () =>
     {
         timer.pause()
-        vscode.window.showInformationMessage('Pomodoro pause')
     })
 
     let reset: vscode.Disposable = vscode.commands.registerCommand('pomodoro.reset', () =>
@@ -42,7 +39,6 @@ export function activate(context: vscode.ExtensionContext)
     let stop: vscode.Disposable = vscode.commands.registerCommand('pomodoro.stop', () =>
     {
         timer.stop()
-        vscode.window.showInformationMessage('Pomodoro stop')
     })
 
     let disposables: vscode.Disposable[] = []
@@ -53,5 +49,7 @@ export function activate(context: vscode.ExtensionContext)
     }
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() { }
+export function deactivate()
+{
+    console.log("pomodoro deactivated")
+}

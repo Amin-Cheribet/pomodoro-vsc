@@ -25,20 +25,21 @@ export default class
 
     getTimeText()
     {
-        return `${this.remainingMinutes}:${this.remainingSeconds}`
+        return `${(this.remainingMinutes < 10) ? ("0" + this.remainingMinutes) : this.remainingMinutes}:${(this.remainingSeconds < 10) ? ("0" + this.remainingSeconds) : this.remainingSeconds}`
     }
 
     tick()
     {
         if (!this.stopFlag) {
             this.remainingSeconds--
-            if (this.remainingSeconds < 0) {
+            if (this.remainingSeconds <= 0) {
                 this.remainingMinutes--
                 this.remainingSeconds = 60
             }
         }
 
-        if (this.remainingMinutes < 0) {
+        if (this.remainingMinutes < 0 && !this.stopFlag) {
+            this.stopFlag = true
             if (this.status === 'work') {
                 this.pause()
                 this.statusBar.text.color = 'green'
@@ -76,30 +77,51 @@ export default class
 
     work()
     {
-        this.player.play('sounds_bell.wav').then((result) =>
-            vscode.window.showInformationMessage('played')
-        ).catch((err) =>
-            vscode.window.showInformationMessage(err)
-        )
-        this.statusBar.start()
-        this.status = 'work'
+        this.stopFlag = true
         this.remainingMinutes = this.config.workTime
         this.remainingSeconds = 0
-        this.stopFlag = false
+        this.statusBar.start()
+        this.status = 'work'
+        vscode.window.showErrorMessage(
+            "Pomodoro: Do you want to start working ?",
+            ...["Yes", "No"]
+        ).then((answer) =>
+        {
+            if (answer === "Yes") {
+                this.stopFlag = false
+            } else {
+                this.stop()
+            }
+        })
+        this.player.play('sounds_bell.wav').catch((err) =>
+            vscode.window.showInformationMessage(err)
+        )
     }
 
     pause()
     {
-        this.player.play('sounds_chime.wav').then((result) =>
-            vscode.window.showInformationMessage('played')
-        ).catch((err) =>
-            vscode.window.showInformationMessage(err)
-        )
-        this.statusBar.pause()
-        this.status = 'pause'
+        this.stopFlag = true
         this.remainingMinutes = this.config.breakTime
         this.remainingSeconds = 0
-        this.stopFlag = false
+        this.statusBar.pause()
+        this.status = 'pause'
+
+        vscode.window.showErrorMessage(
+            "Pomodoro: Do you want to take a break ?",
+            ...["Yes", "No"]
+        ).then((answer) =>
+        {
+            if (answer === "Yes") {
+                this.stopFlag = false
+            } else {
+                this.stop()
+            }
+        })
+
+        this.player.play('sounds_chime.wav').catch((err) =>
+            vscode.window.showInformationMessage(err)
+        )
+
     }
 
     stop()
