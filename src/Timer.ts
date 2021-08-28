@@ -32,13 +32,14 @@ export default class
     {
         if (!this.stopFlag) {
             this.remainingSeconds--
-            if (this.remainingSeconds < 0) {
+            if (this.remainingSeconds <= 0) {
                 this.remainingMinutes--
                 this.remainingSeconds = 60
             }
         }
 
-        if (this.remainingMinutes < 0) {
+        if (this.remainingMinutes < 0 && !this.stopFlag) {
+            this.stopFlag = true
             if (this.status === 'work') {
                 this.pause()
                 this.statusBar.text.color = 'green'
