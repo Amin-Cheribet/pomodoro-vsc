@@ -25,7 +25,7 @@ export default class
 
     getTimeText()
     {
-        return `${this.remainingMinutes}:${this.remainingSeconds}`
+        return `${(this.remainingMinutes < 10) ? ("0" + this.remainingMinutes) : this.remainingMinutes}:${(this.remainingSeconds < 10) ? ("0" + this.remainingSeconds) : this.remainingSeconds}`
     }
 
     tick()
