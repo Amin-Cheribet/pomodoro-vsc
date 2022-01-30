@@ -1,3 +1,4 @@
+import * as vscode from 'vscode'
 
 const cp = require('child_process')
 const path = require('path')
@@ -10,21 +11,17 @@ interface PlayerConfig
     linuxVol: number
 }
 
-const playerAdapter = (opts: PlayerConfig) => ({
-    afplay: ['-v', opts.macVol],
-    mplayer: ['-af', `volume=${opts.linuxVol}`],
-})
-
 
 export default class
 {
+    private config = vscode.workspace.getConfiguration("pomodoro")
     _isWindows = process.platform === 'win32'
     _playerWindowsPath = path.join(__dirname, '..', 'audio', 'sounder.exe')
     playerConfig =
         {
-            macVol: 1,
-            winVol: 100,
-            linuxVol: 100
+            macVol: 1, // TODO: This was not added to configurations because i can't test it
+            winVol: this.config.notificationVolume,
+            linuxVol: this.config.notificationVolume
         }
 
     play(fileName: string): Promise<void>

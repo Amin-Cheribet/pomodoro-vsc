@@ -42,10 +42,10 @@ export default class
             this.stopFlag = true
             if (this.status === 'work') {
                 this.pause()
-                this.statusBar.text.color = 'green'
+                this.statusBar.text.color = this.config.breakColorTime
             } else if (this.status === 'pause') {
                 this.work()
-                this.statusBar.text.color = 'red'
+                this.statusBar.text.color = this.config.workColorTime
             }
         }
         this.statusBar.updateText(this.getTimeText())
@@ -67,9 +67,9 @@ export default class
     continue()
     {
         if (this.status === 'pause') {
-            this.statusBar.text.color = 'green'
+            this.statusBar.text.color = this.config.breakColorTime
         } else {
-            this.statusBar.text.color = 'red'
+            this.statusBar.text.color = this.config.workColorTime
         }
         this.statusBar.continue()
         this.stopFlag = false
