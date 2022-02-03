@@ -1,9 +1,9 @@
 {
-    "name": "pomodoro",
+    "name": "omodoro",
     "displayName": "Pomodoro",
     "description": "Pomodoro timer with sound notifications",
-    "publisher": "Amin Cheribet",
-    "version": "0.3",
+    "publisher": "Amin",
+    "version": "0.3.1",
     "icon": "icon.png",
     "engines": {
         "vscode": "^1.59.0"
