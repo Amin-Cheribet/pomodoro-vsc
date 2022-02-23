@@ -13,10 +13,15 @@ Please note that this is an in-development extension.
 
 - Break Time ( time of break in between cycles ).
 - Work Time ( time of work in each cycle ).
+- Notification Volume ( the volume of sound notifications ).
+- Break Time Color ( the color of time when in break ).
+- Break button color ( the color of button when in break ).
+- Work Time Color ( the color of time when in work ).
+- Work button color ( the color of button when in work ).
 
 ## Release Notes
 
-this is the beta release some features may not work as expected, in this case create an issue. 
+this is the beta release some features may not work as expected, in this case please report the problem by creating an issue. 
 
 
 -----------------------------------------------------------------------------------------------------------
