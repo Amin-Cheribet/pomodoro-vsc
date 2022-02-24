@@ -9,6 +9,7 @@ export default class
     remainingMinutes: number
     active: NodeJS.Timeout | undefined = undefined
     stopFlag: boolean = false
+    notificationSoundFlag: boolean = true
     status: 'work' | 'pause' = 'work'
     config: vscode.WorkspaceConfiguration
     statusBar: StatusBar
@@ -73,11 +74,13 @@ export default class
         }
         this.statusBar.continue()
         this.stopFlag = false
+        this.notificationSoundFlag = true
     }
 
     work()
     {
         this.stopFlag = true
+        this.notificationSoundFlag = true
         this.remainingMinutes = this.config.workTime
         this.remainingSeconds = 0
         this.statusBar.start()
@@ -89,18 +92,34 @@ export default class
         {
             if (answer === "Yes") {
                 this.stopFlag = false
+                this.notificationSoundFlag = false
             } else {
+                this.notificationSoundFlag = false
                 this.stop()
             }
         })
+
         this.player.play('sounds_bell.wav').catch((err) =>
             vscode.window.showInformationMessage(err)
         )
+
+        let interval: NodeJS.Timeout = setInterval(() =>
+        {
+            if (!this.notificationSoundFlag) {
+                clearInterval(interval)
+            } else {
+                this.player.play('sounds_bell.wav').catch((err) =>
+                    vscode.window.showInformationMessage(err)
+                )
+            }
+
+        }, this.config.soundIntervalNotification * 1000)
     }
 
     pause()
     {
         this.stopFlag = true
+        this.notificationSoundFlag = true
         this.remainingMinutes = this.config.breakTime
         this.remainingSeconds = 0
         this.statusBar.pause()
@@ -113,8 +132,10 @@ export default class
         {
             if (answer === "Yes") {
                 this.stopFlag = false
+                this.notificationSoundFlag = false
             } else {
                 this.stop()
+                this.notificationSoundFlag = false
             }
         })
 
@@ -122,12 +143,25 @@ export default class
             vscode.window.showInformationMessage(err)
         )
 
+        let interval: NodeJS.Timeout = setInterval(() =>
+        {
+            if (!this.notificationSoundFlag) {
+                clearInterval(interval)
+            } else {
+                this.player.play('sounds_chime.wav').catch((err) =>
+                    vscode.window.showInformationMessage(err)
+                )
+            }
+
+        }, this.config.soundIntervalNotification * 1000)
+
     }
 
     stop()
     {
         this.statusBar.stop()
         this.stopFlag = true
+        this.notificationSoundFlag = false
     }
 
     reset()
@@ -140,5 +174,6 @@ export default class
         this.status = 'work'
         this.remainingMinutes = this.config.workTime
         this.remainingSeconds = 0
+        this.notificationSoundFlag = false
     }
 }
