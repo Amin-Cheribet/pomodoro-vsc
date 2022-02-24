@@ -3,7 +3,7 @@
     "displayName": "Pomodoro",
     "description": "Pomodoro timer with sound notifications",
     "publisher": "Amin",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "icon": "icon.png",
     "engines": {
         "vscode": "^1.59.0"
@@ -76,6 +76,11 @@
                     "type": "string",
                     "default": "red",
                     "description": "Buttons color when working"
+                },
+                "pomodoro.soundIntervalNotification": {
+                    "type": "number",
+                    "default": "20",
+                    "description": "Time of interval between sound notifications in seconds"
                 }
             }
         }
