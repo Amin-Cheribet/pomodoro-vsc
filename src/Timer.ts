@@ -74,7 +74,7 @@ export default class
         }
         this.statusBar.continue()
         this.stopFlag = false
-        this.notificationSoundFlag = true
+        this.notificationSoundFlag = false
     }
 
     work()
