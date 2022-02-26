@@ -23,6 +23,9 @@ Please note that this is an in-development extension.
 
 this is the beta release some features may not work as expected, in this case please report the problem by creating an issue. 
 
+## Screenshots
+
+![alt text](https://raw.githubusercontent.com/Amin-Cheribet/pomodoro-vsc/master/start_button.png)
 
 -----------------------------------------------------------------------------------------------------------
 ### For more information
