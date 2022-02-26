@@ -26,6 +26,8 @@ this is the beta release some features may not work as expected, in this case pl
 ## Screenshots
 
 ![alt text](https://raw.githubusercontent.com/Amin-Cheribet/pomodoro-vsc/master/start_button.png)
+![alt text](https://raw.githubusercontent.com/Amin-Cheribet/pomodoro-vsc/master/dialog.png)
+![alt text](https://raw.githubusercontent.com/Amin-Cheribet/pomodoro-vsc/master/working_counter.png)
 
 -----------------------------------------------------------------------------------------------------------
 ### For more information
