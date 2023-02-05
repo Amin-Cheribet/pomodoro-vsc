@@ -31,9 +31,9 @@ export default class {
   tick() {
     if (!this.stopFlag) {
       this.remainingSeconds--
-      if (this.remainingSeconds <= 0) {
+      if (this.remainingSeconds < 0) {
         this.remainingMinutes--
-        this.remainingSeconds = 60
+        this.remainingSeconds = 59
       }
     }
 
@@ -58,7 +58,7 @@ export default class {
         this.tick()
       }, 1000)
     }
-    this.work(true)
+    this.work(terminal)
   }
 
   continue(terminal = false) {
