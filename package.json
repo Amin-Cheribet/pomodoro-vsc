@@ -18,24 +18,24 @@
     "contributes": {
         "commands": [
             {
-                "command": "pomodoro.start",
-                "title": "Start Pomodoro"
+                "command": "pomodoro.startTerminal",
+                "title": "Pomodoro Start"
             },
             {
-                "command": "pomodoro.continue",
-                "title": "Continue Pomodoro"
+                "command": "pomodoro.continueTerminal",
+                "title": "Pomodoro Continue"
             },
             {
-                "command": "pomodoro.pause",
-                "title": "Pause Pomodoro"
+                "command": "pomodoro.pauseTerminal",
+                "title": "Pomodoro Break"
             },
             {
-                "command": "pomodoro.reset",
-                "title": "Reset Pomodoro"
+                "command": "pomodoro.resetTerminal",
+                "title": "Pomodoro Reset"
             },
             {
-                "command": "pomodoro.stop",
-                "title": "Stop Pomodoro"
+                "command": "pomodoro.stopTerminal",
+                "title": "Pomodoro Stop"
             }
         ],
         "configuration": {
