@@ -50,7 +50,7 @@ export default class {
     this.statusBar.updateText(this.getTimeText())
   }
 
-  start() {
+  start(terminal = false) {
     if (!this.active) {
       this.remainingMinutes = this.config.workTime
       this.remainingSeconds = 0
@@ -58,10 +58,13 @@ export default class {
         this.tick()
       }, 1000)
     }
-    this.work()
+    this.work(true)
   }
 
-  continue() {
+  continue(terminal = false) {
+    if (!this.active) {
+      return
+    }
     if (this.status === "pause") {
       this.statusBar.text.color = this.config.breakColorTime
     } else {
@@ -72,24 +75,28 @@ export default class {
     this.notificationSoundFlag = false
   }
 
-  work() {
+  work(terminal = false) {
     this.stopFlag = true
     this.notificationSoundFlag = true
     this.remainingMinutes = this.config.workTime
     this.remainingSeconds = 0
     this.statusBar.start()
     this.status = "work"
-    vscode.window.showErrorMessage("Pomodoro: Do you want to start working ?", ...["Yes", "No"]).then((answer) => {
-      if (answer === "Yes") {
-        this.stopFlag = false
-        this.notificationSoundFlag = false
-      } else {
-        this.notificationSoundFlag = false
-        this.stop()
-      }
-    })
-
-    this.player.play("sounds_bell.wav").catch((err) => vscode.window.showInformationMessage(err))
+    if (!terminal) {
+      vscode.window.showErrorMessage("Pomodoro: Do you want to start working ?", ...["Yes", "No"]).then((answer) => {
+        if (answer === "Yes") {
+          this.stopFlag = false
+          this.notificationSoundFlag = false
+        } else {
+          this.notificationSoundFlag = false
+          this.stop()
+        }
+      })
+      this.player.play("sounds_bell.wav").catch((err) => vscode.window.showInformationMessage(err))
+    } else {
+      this.stopFlag = false
+      this.notificationSoundFlag = false
+    }
 
     let interval: NodeJS.Timeout = setInterval(() => {
       if (!this.notificationSoundFlag) {
@@ -100,7 +107,10 @@ export default class {
     }, this.config.soundIntervalNotification * 1000)
   }
 
-  pause() {
+  pause(terminal = false) {
+    if (!this.active) {
+      return
+    }
     this.stopFlag = true
     this.notificationSoundFlag = true
     this.remainingMinutes = this.config.breakTime
@@ -108,18 +118,22 @@ export default class {
     this.statusBar.pause()
     this.status = "pause"
 
-    vscode.window.showErrorMessage("Pomodoro: Do you want to take a break ?", ...["Yes", "No"]).then((answer) => {
-      if (answer === "Yes") {
-        this.stopFlag = false
-        this.notificationSoundFlag = false
-      } else {
-        this.stop()
-        this.notificationSoundFlag = false
-      }
-    })
+    if (!terminal) {
+      vscode.window.showErrorMessage("Pomodoro: Do you want to take a break ?", ...["Yes", "No"]).then((answer) => {
+        if (answer === "Yes") {
+          this.stopFlag = false
+          this.notificationSoundFlag = false
+        } else {
+          this.stop()
+          this.notificationSoundFlag = false
+        }
+      })
 
-    this.player.play("sounds_chime.wav").catch((err) => vscode.window.showInformationMessage(err))
-
+      this.player.play("sounds_chime.wav").catch((err) => vscode.window.showInformationMessage(err))
+    } else {
+      this.stopFlag = false
+      this.notificationSoundFlag = false
+    }
     let interval: NodeJS.Timeout = setInterval(() => {
       if (!this.notificationSoundFlag) {
         clearInterval(interval)
@@ -129,13 +143,13 @@ export default class {
     }, this.config.soundIntervalNotification * 1000)
   }
 
-  stop() {
+  stop(terminal = false) {
     this.statusBar.stop()
     this.stopFlag = true
     this.notificationSoundFlag = false
   }
 
-  reset() {
+  reset(terminal = false) {
     this.statusBar.reset()
     if (this.active) {
       clearInterval(this.active)
