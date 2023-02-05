@@ -1,8 +1,7 @@
 # Pomodoro 
 
-A Pomodoro extension for vsc with sound notifications.
+A Pomodoro extension for vsc with audio / sound notifications.
 
-Please note that this is an in-development extension.
 ## Features
 
 - Play sounds to announe the start of work cycle or break.
